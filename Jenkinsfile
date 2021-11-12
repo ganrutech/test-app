@@ -5,8 +5,8 @@ pipeline {
             steps {
                 echo "Execting npm"
                 nodejs('Node-14') {
-                    sh "sudo npm install"
-                    sh "sudo npm run build"
+                    sh "npm install"
+                    sh "npm run build"
                 }
             }
         }
@@ -17,11 +17,11 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                sh "sudo rm -rf /Users/ticvictech/Desktop/jenkins-react-app"
-                sh "sudo cp -r ${WORKSPACE}/build/ /Users/ticvictech/Desktop/jenkins-react-app/"
+                sh "rm -rf /Users/ticvictech/Desktop/jenkins-react-app"
+                sh "cp -r ${WORKSPACE}/build/ /Users/ticvictech/Desktop/jenkins-react-app/"
                 echo "Folder copied"
                 echo "Starting server..."
-                sh "sudo npm run build:start"
+                sh "npm run build:start"
                 echo "Deploy Success"
             }
         }
