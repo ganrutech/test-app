@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:lts-buster-slim'
+            args '-p 7000:7000'
+        }
+    }
     environment {
         CI = 'true'
     }
@@ -7,9 +12,8 @@ pipeline {
         stage("Build") {
             steps {
                 echo "Installing npm package"
-                nodejs('Node-14') {
-                    sh "npm install"
-                }
+                sh "npm install"
+               
             }
         }
         stage("Test") {
