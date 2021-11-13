@@ -3,26 +3,22 @@ pipeline {
      stages {
         stage("Build") {
             steps {
-                echo "Execting npm"
+                echo "Installing npm package"
                 nodejs('Node-14') {
                     sh "npm install"
-                    sh "npm run build"
                 }
             }
         }
         stage("Test") {
             steps {
-                echo "Testing..."
+                echo "Test completed"
             }
         }
         stage("Deploy") {
             steps {
-                sh "rm -rf /Users/ticvictech/Desktop/jenkins-react-app"
-                sh "cp -r ${WORKSPACE}/build/ /Users/ticvictech/Desktop/jenkins-react-app/"
-                echo "Folder copied"
-                echo "Starting server..."
-                sh "npm run build:start"
-                echo "Deploy Success"
+                sh './jenkins/scripts/deliver.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
