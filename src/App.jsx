@@ -9,6 +9,12 @@ const App = () => (
     <div>Framework: react</div>
     <div>Language: JavaScript</div>
     <div>CSS: Tailwind</div>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum pariatur
+      perferendis tempore dolore? Unde eligendi accusamus, distinctio cum optio
+      alias laudantium vel a nemo, corrupti explicabo enim illum consequatur
+      consequuntur.
+    </p>
   </div>
 );
 ReactDOM.render(<App />, document.getElementById("app"));
