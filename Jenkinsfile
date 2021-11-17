@@ -1,6 +1,7 @@
 pipeline {
     agent any
-    environment {
+    tools {nodejs "Node17"}
+     environment {
         CI = 'true'
     }
     stages {
@@ -8,7 +9,6 @@ pipeline {
             steps {
                 echo "Started installing package..."
                 sh "npm install"
-                sh "npm run build"
             }
         }
         stage("Test") {
@@ -18,8 +18,12 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                sh "chmod +x -R ${env.WORKSPACE}"
-                sh './jenkins/scripts/server.sh'
+                echo "PATH: ${env.WORKSPACE}"
+                sh "chmod +x ${env.WORKSPACE}/jenkins/scripts/deliver.sh"
+                sh "chmod +x ${env.WORKSPACE}/jenkins/scripts/kill.sh"
+                sh './jenkins/scripts/deliver.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
